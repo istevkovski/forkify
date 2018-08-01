@@ -14,6 +14,7 @@ export default class Recipe {
             this.img = res.data.recipe.image_url;
             this.url = res.data.recipe.source_url;
             this.ingredients = res.data.recipe.ingredients;
+            console.log(res);
         } catch (error) {
             console.log(error);
             alert('Something went wrong :(');
@@ -47,8 +48,17 @@ export default class Recipe {
             ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
 
             // Parse ingredients into count, unit and ingredients
-            const arrIng = ingredient.split(' ');
-            const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
+            let arrIng = ingredient.split(' ');
+            let unitIndex = arrIng.findIndex(el2 => units.includes(el2));
+
+            // Reorganize string ready for parsing
+            if(isNaN(ingredient[0])) {
+                let rfpIng = ingredient.split(':')[1];
+                rfpIng = rfpIng.split(' ');
+                rfpIng.pop();
+                arrIng = rfpIng;
+                unitIndex = arrIng.findIndex(el2 => units.includes(el2));
+            }
             
             let objIng;
             if (unitIndex > -1) {
