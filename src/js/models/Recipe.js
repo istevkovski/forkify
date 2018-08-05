@@ -33,8 +33,8 @@ export default class Recipe {
     }
 
     parseIngredients() {
-        const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
-        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+        const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds', 'stick'];
+        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound', 'stick'];
         const units = [...unitsShort, 'kg', 'g'];
 
         const newIngredients = this.ingredients.map(el => {
@@ -52,7 +52,7 @@ export default class Recipe {
             let unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
             // Reorganize string ready for parsing
-            if(isNaN(ingredient[0])) {
+            if(isNaN(ingredient[0]) && ingredient.split(':')[1] !== undefined) {
                 let rfpIng = ingredient.split(':')[1];
                 rfpIng = rfpIng.split(' ');
                 rfpIng.pop();
